@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -49,6 +51,8 @@ class Flat(models.Model):
         db_index=True)
     new_building = models.BooleanField(null=True)
 
+    liked_by = models.ManyToManyField(User, verbose_name='Кто лайкнул', related_name="liked_flats")
+
     def __str__(self):
         return f'{self.town}, {self.address} ({self.price}р.)'
 
@@ -56,7 +60,8 @@ class Flat(models.Model):
 class Complaint(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     flat = models.ForeignKey(Flat, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_created=True, auto_now=True)
     text = models.TextField()
 
     def __str__(self):
-        return f'Жалоба от {self.user}'
+        return f'Жалоба от {self.user} - {datetime.strftime(self.date, "%Y-%m-%d")}'
