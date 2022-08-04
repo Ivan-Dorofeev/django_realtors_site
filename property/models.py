@@ -67,3 +67,13 @@ class Complaint(models.Model):
 
     def __str__(self):
         return f'Жалоба от {self.user} - {datetime.strftime(self.date, "%Y-%m-%d")}'
+
+
+class Owner(models.Model):
+    full_name = models.CharField('ФИО владельца', max_length=200)
+    phonenumber = models.CharField('Номер владельца', max_length=20)
+    pure_phone = PhoneNumberField(blank=True, verbose_name='Нормализованный номер владельца')
+    flats = models.ForeignKey(Flat, verbose_name='Квартиры в собственности', related_name='owners_by_flat', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.full_name
