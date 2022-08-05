@@ -70,21 +70,10 @@ class Complaint(models.Model):
 
 
 class Owner(models.Model):
-    full_name = models.CharField('ФИО владельца', max_length=200)
+    full_name = models.CharField('ФИО владельца', max_length=200, db_index=True)
     phonenumber = models.CharField('Номер владельца', max_length=20)
     pure_phone = PhoneNumberField(blank=True, verbose_name='Нормализованный номер владельца')
-    flats = models.ForeignKey(Flat, verbose_name='Квартиры в собственности', related_name='owners_by_flat',
-                              on_delete=models.CASCADE)
+    flats = models.ManyToManyField(Flat, verbose_name='Квартиры в собственности', related_name='owners_by_flat')
 
     def __str__(self):
         return self.full_name
-
-
-class PropertyOwnerOwnedFlats(models.Model):
-    owner = models.ForeignKey(Owner, models.DO_NOTHING)
-    flat = models.ForeignKey(Flat, models.DO_NOTHING)
-
-    class Meta:
-        managed = False
-        db_table = 'property_owner_owned_flats'
-        unique_together = (('owner', 'flat'),)
