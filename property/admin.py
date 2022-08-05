@@ -3,9 +3,10 @@ from django.contrib import admin
 from .models import Flat, Complaint, Owner
 
 
-# class OwnersInLine(admin.TabularInline):
-#     model = Flat
-#     exclude = ['phonenumber', 'pure_phone']
+class OwnersInLine(admin.TabularInline):
+    model = Owner.flats.through
+    exclude = ['phonenumber', 'pure_phone']
+    raw_id_fields = ['owner']
 
 
 class FlatAdmin(admin.ModelAdmin):
@@ -16,7 +17,7 @@ class FlatAdmin(admin.ModelAdmin):
     list_editable = ['new_building']
     list_filter = ['new_building', 'active']
     raw_id_fields = ['liked_by']
-    # inlines = [OwnersInLine]
+    inlines = [OwnersInLine]
 
 
 class ComplaintAdmin(admin.ModelAdmin):
