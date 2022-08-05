@@ -3,16 +3,21 @@
 
 Пока сайт выводит:
 * Информацию по квартирам с фильтрами
+
 ![image](https://user-images.githubusercontent.com/58893102/183011383-097dfda2-ded7-4336-8273-1280b52ff589.png)
 
 * Реализованы жалобы на квартиры
+
 ![image](https://user-images.githubusercontent.com/58893102/183011547-83153b22-7e22-4157-ac28-9aef7975c128.png)
 
 * Нормализация номеров в админке
+
 ![image](https://user-images.githubusercontent.com/58893102/183011671-d045c89b-b7ef-4881-9451-f947ebaee600.png)
 
 * Лайки и связи с влаельцами квартир
+
 ![image](https://user-images.githubusercontent.com/58893102/183011754-eb7e9e31-b173-4d9b-8ee5-9779cf552f07.png)
+
 
 
 ### Запуск
