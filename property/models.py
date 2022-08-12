@@ -48,7 +48,7 @@ class Flat(models.Model):
         null=True,
         blank=True,
         db_index=True)
-    new_building = models.BooleanField(null=True)
+    new_building = models.BooleanField('Новое строение', null=True)
 
     liked_by = models.ManyToManyField(User, verbose_name='Кто лайкнул', related_name="liked_flats")
 
@@ -57,10 +57,10 @@ class Flat(models.Model):
 
 
 class Complaint(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    flat = models.ForeignKey(Flat, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_created=True, auto_now=True)
-    text = models.TextField()
+    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
+    flat = models.ForeignKey(Flat, verbose_name='Квартира', on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_created=True, verbose_name='Дата создания жалобы', auto_now=True)
+    text = models.TextField(verbose_name='Текст', )
 
     def __str__(self):
         return f'Жалоба от {self.user} - {datetime.strftime(self.date, "%Y-%m-%d")}'
@@ -69,7 +69,7 @@ class Complaint(models.Model):
 class Owner(models.Model):
     full_name = models.CharField('ФИО владельца', max_length=200, db_index=True)
     phonenumber = models.CharField('Номер владельца', max_length=20)
-    pure_phone = PhoneNumberField(verbose_name='Нормализованный номер владельца',blank=True)
+    pure_phone = PhoneNumberField('Нормализованный номер владельца', blank=True)
     flats = models.ManyToManyField(Flat, verbose_name='Квартиры в собственности', related_name='owners_by_flat')
 
     def __str__(self):
