@@ -2,4 +2,3 @@
 *.log
 *.sqlite3
 *.sqlite3-journal
-property/migrations
